@@ -1,18 +1,18 @@
 pipeline {
     agent any
-
+    environment {
+        PATH = "D:\apache-maven-3.9.5\apache-maven\src\bin$PATH"
+    }
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('build') {
             steps {
-                echo 'build app'
+                bat "C:\\Windows\\System32\\cmd.exe /c mvn clean test"
             }
         }
   }
-    post
-    {
-        always
-        {
-            emailext body: 'summary', subject: 'pipeline status', to: 'mail'
-        }
-    }
 }
